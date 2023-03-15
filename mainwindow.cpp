@@ -207,15 +207,16 @@ void Calculator::btn_equality() {
 
     double second_num = ui->lbl_number->text().toDouble();
 
-    if (second_num == 0 && operations_index == 4) {
-        ui->lbl_number->setText("press C.");
-        QMessageBox::warning(this, "error.", "cannot divide by zero.");
-        block_operations(true);
-    } else if (operations_index != 0){
-        struct lbl_res calc = {operations_index, first_num, second_num};
-        ui->lbl_number->setText(QString::number(label_result(calc, operations_index), 'g', 12));
-    }
+    if (operations_index != 0){
+        struct lbl_res calc = {operations_index, first_num, second_num, ""};
+        ui->lbl_number->setText(QString::number(label_result(calc), 'g', 12));
+        if (calc.message == "error") {
+            ui->lbl_number->setText("press C.");
+            QMessageBox::warning(this, "error.", "cannot divide by zero.");
+            block_operations(true);
+        }
 
+    }
 
     if (ui->lbl_number->text().contains('e')) {
         block_nums(true);
