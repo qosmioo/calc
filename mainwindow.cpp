@@ -81,7 +81,7 @@ void Calculator::digits_numbers() {
             ui->pbt_equality->setEnabled(true);
         }
 
-        if (ui->lbl_number->text() == "0" && (button->text() != "0" || button->text() == "-0")) {
+        if (ui->lbl_number->text() == "0") {
             str = button->text();
         } else {
             str = ui->lbl_number->text() + button->text();
@@ -89,10 +89,7 @@ void Calculator::digits_numbers() {
 
         ui->lbl_number->setText(str);
 
-        if (ui->lbl_number->text().contains('i')) {
-            block_nums(true);
-            block_operations(true);
-        } else if (ui->lbl_number->text().contains('e')) {
+        if (ui->lbl_number->text().contains('e')) {
             block_nums(true);
         }
 
@@ -113,10 +110,7 @@ void Calculator::pbt_dot_clicker () {
 
 void Calculator::operations() {
 
-    if (ui->lbl_number->text().contains('i')) {
-        block_nums(true);
-        block_operations(true);
-    } else if (ui->lbl_number->text().contains('e')) {
+    if (ui->lbl_number->text().contains('e')) {
         block_nums(true);
     }
     QPushButton *button = (QPushButton *)sender();
@@ -182,7 +176,7 @@ void Calculator::math_operations() {
     ui->lbl_number->setText(ui->lbl_number->text() + button->text());
 
     if (button->text() == "+") {
-        operations_index = PLUS_IND; // isChecked
+        operations_index = PLUS_IND;
     } else if (button->text() == "-") {
         operations_index = MINUS_IND;
      } else if (button->text() == "x") {
@@ -194,7 +188,6 @@ void Calculator::math_operations() {
     ui->lbl_number->setText("");
 
     block_nums(false);
-    //ui->pbt_equality->setEnabled(true);
 
 }
 
@@ -215,14 +208,10 @@ void Calculator::btn_equality() {
             QMessageBox::warning(this, "error.", "cannot divide by zero.");
             block_operations(true);
         }
-
     }
 
     if (ui->lbl_number->text().contains('e')) {
         block_nums(true);
-        ui->pbt_dot->setEnabled(false);
-    } else if (ui->lbl_number->text().contains(',')) {
-        ui->pbt_dot->setEnabled(false);
     }
     ui->pbt_equality->setEnabled(false);
     enable_dot ();
