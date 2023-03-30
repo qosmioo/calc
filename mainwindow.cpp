@@ -83,7 +83,11 @@ void Calculator::digits_numbers() {
 
         if (ui->lbl_number->text() == "0") {
             str = button->text();
-        } else {
+
+        } else if (ui->lbl_number->text() == "-0") {
+            str = "-" + button->text();
+        }
+        else {
             str = ui->lbl_number->text() + button->text();
         }
 
@@ -103,9 +107,8 @@ void Calculator::pbt_dot_clicker () {
         if(!(ui->lbl_number->text().contains('.')) && !(ui->lbl_number->text().contains('e'))) {
             ui->lbl_number->setText(ui->lbl_number->text() + ".");
         }
-        ui->pbt_dot->setEnabled(false);
     }
-
+    ui->pbt_dot->setEnabled(false);
 }
 
 void Calculator::operations() {
